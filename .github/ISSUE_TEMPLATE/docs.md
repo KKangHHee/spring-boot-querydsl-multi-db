@@ -1,4 +1,12 @@
-## 📄 문서 작업 (Docs)
+---
+name: Docs
+about: 문서 작업
+title: "[docs] "
+labels: docs
+assignees: ""
+---
+
+## 📄 문서 작업
 > 어떤 문서를 작성/수정하는지
 
 ---

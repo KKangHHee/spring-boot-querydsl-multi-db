@@ -1,6 +1,13 @@
-## 🐞 버그 설명 (Fix)
-> 어떤 문제가 발생했는지
+---
+name: Bug Fix
+about: 버그 수정
+title: "[fix] "
+labels: fix
+assignees: ""
+---
 
+## 🐞 버그 설명
+> 어떤 문제가 발생했는지
 ---
 
 ## 🔁 재현 방법

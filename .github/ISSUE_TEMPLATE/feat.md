@@ -1,4 +1,12 @@
-## 🚀 기능 설명 (Feature)
+---
+name: Feature
+about: 기능 개발
+title: "[feat] "
+labels: feat
+assignees: ""
+---
+
+## 🚀 기능 설명
 > 어떤 기능인지 간단히 설명
 
 예: 회사 관리 조회 API 구현

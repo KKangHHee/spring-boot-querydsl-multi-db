@@ -1,4 +1,12 @@
-## 🧹 기타 작업 (Chore)
+---
+name: Chore
+about: 기타 작업
+title: "[chore] "
+labels: chore
+assignees: ""
+---
+
+## 🧹 기타 작업
 > 기능/버그/문서 외 작업
 
 ---
