@@ -1,7 +1,6 @@
 version: "3.8"
 
 services:
-
   mariadb:
     image: mariadb:11
     container_name: mariadb-local
@@ -22,7 +21,8 @@ services:
     restart: always
     environment:
       ORACLE_PASSWORD: oracle
-      ORACLE_DATABASE: XE
+      APP_USER: app_user
+      APP_USER_PASSWORD: app_pass
     ports:
       - "1521:1521"
     volumes:
