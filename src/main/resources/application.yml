@@ -1,16 +1,26 @@
 spring:
-  datasource:
-    mariadb:
-      url: jdbc:mariadb://localhost:3306/app_db
-      username: app_user
-      password: app_pass
-      driver-class-name: org.mariadb.jdbc.Driver
+datasource:
+  # MariaDB 설정 (Primary)
+  mariadb:
+    jdbc-url: jdbc:mariadb://localhost:3306/app_db
+    username: app_user
+    password: app_pass
+    driver-class-name: org.mariadb.jdbc.Driver
+    hikari:
+      pool-name: MariaDB-Pool
+      maximum-pool-size: 10
+      connection-timeout: 30000
 
-    oracle:
-      url: jdbc:oracle:thin:@localhost:1521:XE
-      username: system
-      password: oracle
-      driver-class-name: oracle.jdbc.OracleDriver
+  # Oracle 설정 (Secondary)
+  oracle:
+    jdbc-url: jdbc:oracle:thin:@localhost:1521/XE
+    username: system
+    password: oracle
+    driver-class-name: oracle.jdbc.OracleDriver
+    hikari:
+      pool-name: Oracle-Pool
+      maximum-pool-size: 5
+      connection-timeout: 60000
 
   jpa:
     hibernate:
