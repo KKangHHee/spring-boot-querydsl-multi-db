@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+
+  mariadb:
+    image: mariadb:11
+    container_name: mariadb-local
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: app_db
+      MARIADB_USER: app_user
+      MARIADB_PASSWORD: app_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  oracle:
+    image: gvenzl/oracle-xe:21-slim
+    container_name: oracle-local
+    restart: always
+    environment:
+      ORACLE_PASSWORD: oracle
+      ORACLE_DATABASE: XE
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+
+volumes:
+  mariadb_data:
+  oracle_data:
