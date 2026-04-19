@@ -2,6 +2,8 @@ package com.example.demo.global.config.db;
 
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManagerFactory;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -33,10 +35,17 @@ public class OracleConfig {
   public LocalContainerEntityManagerFactoryBean oracleEntityManagerFactory(
       EntityManagerFactoryBuilder builder,
       @Qualifier("oracleDataSource") DataSource dataSource) {
+    Map<String, Object> properties = new HashMap<>();
+    properties.put("hibernate.dialect", "org.hibernate.dialect.OracleDialect");
+    properties.put("hibernate.hbm2ddl.auto", "none");
+    properties.put("hibernate.format_sql", true);
+    properties.put("hibernate.id.new_generator_mappings", "true");
+
     return builder
         .dataSource(dataSource)
         .packages("com.example.demo.domain.postOracle.entity") // Entity 경로
         .persistenceUnit("oracle")
+        .properties(properties)
         .build();
   }
 
