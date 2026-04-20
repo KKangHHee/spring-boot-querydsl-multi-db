@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(
     basePackages = {
         "com.example.demo.domain.postMaria.repository",
-        "com.example.demo.domain.User.repository"
+        "com.example.demo.domain.user.repository"
     }, // Repository 경로
     entityManagerFactoryRef = "mariadbEntityManagerFactory",
     transactionManagerRef = "mariadbTransactionManager"
@@ -45,7 +45,7 @@ public class MariaDbConfig {
         .dataSource(dataSource)
         .packages(
             "com.example.demo.domain.postMaria.entity",
-            "com.example.demo.domain.User.entity"
+            "com.example.demo.domain.user.entity"
         )        .persistenceUnit("mariadb")
         .build();
   }
