@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Pattern;
 import java.util.Collection;
 import java.util.List;
 import lombok.AccessLevel;
@@ -36,7 +37,7 @@ public class User extends BaseTimeEntity implements UserDetails {
   @Column(nullable = false, length = 200)
   private String password;
 
-  @Column(nullable = false, length = 14)
+  @Column(nullable = false, length = 11)
   private String phone;
 
   private String role;
@@ -77,4 +78,9 @@ public class User extends BaseTimeEntity implements UserDetails {
   public boolean isAccountNonLocked() {
     return this.accountNonLocked; // 필드와 연결
   }
+
+  public String getFormattedPhone() {
+    return this.phone.replaceFirst("(^02|[0-9]{3})([0-9]{3,4})([0-9]{4})$", "$1-$2-$3");
+  }
+
 }
