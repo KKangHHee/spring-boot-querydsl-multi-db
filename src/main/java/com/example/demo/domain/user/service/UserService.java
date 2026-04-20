@@ -3,6 +3,8 @@ package com.example.demo.domain.user.service;
 import com.example.demo.domain.user.dto.UserRequest;
 import com.example.demo.domain.user.entity.User;
 import com.example.demo.domain.user.repository.UserRepository;
+import com.example.demo.global.Exception.CustomException;
+import com.example.demo.global.Exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,7 +35,7 @@ public class UserService {
 
   private void duplicationLoginId(String loginId) {
     if (userRepository.existsByLoginId(loginId)) {
-      throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
+      throw new CustomException(ErrorCode.DUPLICATE_LOGIN_ID);
     }
   }
 }

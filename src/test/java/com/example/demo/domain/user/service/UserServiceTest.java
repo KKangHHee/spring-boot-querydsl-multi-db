@@ -12,6 +12,7 @@ import static org.mockito.Mockito.times;
 import com.example.demo.domain.user.dto.UserRequest;
 import com.example.demo.domain.user.entity.User;
 import com.example.demo.domain.user.repository.UserRepository;
+import com.example.demo.global.Exception.CustomException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -103,7 +104,7 @@ class UserServiceTest {
 
       // when & then
       assertThatThrownBy(() -> userService.createUser(request))
-          .isInstanceOf(IllegalArgumentException.class)
+          .isInstanceOf(CustomException.class)
           .hasMessageContaining("이미 사용 중인 아이디입니다");
 
       // 중복이면 save()는 절대 호출되면 안 됨
