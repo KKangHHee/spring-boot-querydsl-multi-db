@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 public class UserRequest {
 
-  public static record Create(
+  public record Create(
       @NotBlank(message = "사용자 이름은 필수입니다.")
       @Size(max = 10, message = "사용자 이름은 최대 10자입니다.")
       String name,
@@ -27,4 +27,8 @@ public class UserRequest {
   ) {
 
   }
+  public record SearchCondition(
+      String name,
+      String phone
+  ){}
 }
