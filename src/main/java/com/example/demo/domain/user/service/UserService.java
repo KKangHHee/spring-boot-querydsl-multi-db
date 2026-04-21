@@ -6,6 +6,8 @@ import com.example.demo.domain.user.repository.UserRepository;
 import com.example.demo.global.Exception.CustomException;
 import com.example.demo.global.Exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,10 @@ public class UserService {
         .build();
 
     return userRepository.save(user);
+  }
+
+  public Page<User> searchUsers(UserRequest.SearchCondition condition, Pageable pageable) {
+    return userRepository.searchUsers(condition, pageable);
   }
 
   public User findUserByLoginId(String loginId) {
