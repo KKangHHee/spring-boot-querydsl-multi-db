@@ -23,4 +23,23 @@ public class UserResponse {
       );
     }
   }
+
+  public record Summary(
+      Long id,
+      String name,
+      String loginId,
+      String phone,
+      String role
+  ) {
+
+    public static Summary from(User user) {
+      return new Summary(
+          user.getId(),
+          user.getName(),
+          user.getLoginId(),
+          user.getFormattedPhone(),
+          user.getRole()
+      );
+    }
+  }
 }

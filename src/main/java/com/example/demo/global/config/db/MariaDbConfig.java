@@ -46,7 +46,7 @@ public class MariaDbConfig {
         .packages(
             "com.example.demo.domain.postMaria.entity",
             "com.example.demo.domain.user.entity"
-        )        .persistenceUnit("mariadb")
+        ).persistenceUnit("mariadb")
         .build();
   }
 
