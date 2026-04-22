@@ -36,7 +36,8 @@ public class UserService {
   }
 
   public User findUserByLoginId(String loginId) {
-    return userRepository.findByLoginId(loginId).orElse(null);
+    return userRepository.findByLoginId(loginId)
+        .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
   }
 
   private void duplicationLoginId(String loginId) {
