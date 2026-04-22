@@ -22,7 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "users")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User extends BaseTimeEntity implements UserDetails {
+public class User extends BaseTimeEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,26 +57,6 @@ public class User extends BaseTimeEntity implements UserDetails {
     this.role = (role == null || role.isBlank()) ? "USER" : role;
     this.accountNonLocked = true;
     this.failedCount = 0;
-  }
-
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of(new SimpleGrantedAuthority("ROLE_" + this.role));
-  }
-
-  @Override
-  public String getPassword() {
-    return this.password;
-  }
-
-  @Override
-  public String getUsername() {
-    return this.loginId;
-  }
-
-  @Override
-  public boolean isAccountNonLocked() {
-    return this.accountNonLocked; // 필드와 연결
   }
 
   public String getFormattedPhone() {

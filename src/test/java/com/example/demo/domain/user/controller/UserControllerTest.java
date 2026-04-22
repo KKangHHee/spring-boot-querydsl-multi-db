@@ -73,13 +73,13 @@ class UserControllerTest {
   @DisplayName("create user test")
   class create_user {
 
-    private final String createUserUri = "/api/users/";
+    private final String createUserUri = "/api/users";
     // ───────────────────────────────────────────────
     // 성공 케이스
     // ───────────────────────────────────────────────
 
     @Test
-    @DisplayName("POST /api/users/ - 회원가입 성공 시 201 반환")
+    @DisplayName("POST /api/users - 회원가입 성공 시 201 반환")
     void createUser_success() throws Exception {
       // given
       given(userService.createUser(any(UserRequest.Create.class)))
@@ -101,7 +101,7 @@ class UserControllerTest {
     // ───────────────────────────────────────────────
 
     @Test
-    @DisplayName("POST /api/users/ - 중복 loginId 시 409 반환")
+    @DisplayName("POST /api/users - 중복 loginId 시 409 반환")
     void createUser_fail_duplicateLoginId() throws Exception {
       // given
       given(userService.createUser(any(UserRequest.Create.class)))
@@ -121,7 +121,7 @@ class UserControllerTest {
     // ───────────────────────────────────────────────
 
     @Test
-    @DisplayName("POST /api/users/ - name 공백 시 400 반환")
+    @DisplayName("POST /api/users - name 공백 시 400 반환")
     void createUser_fail_blankName() throws Exception {
       // given - name만 공백으로
       UserRequest.Create invalidRequest = new UserRequest.Create(
@@ -142,7 +142,7 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName("POST /api/users/ - 잘못된 전화번호 형식 시 400 반환")
+    @DisplayName("POST /api/users - 잘못된 전화번호 형식 시 400 반환")
     void createUser_fail_invalidPhone() throws Exception {
       // given - 하이픈 포함된 잘못된 형식
       UserRequest.Create invalidRequest = new UserRequest.Create(
@@ -163,7 +163,7 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName("POST /api/users/ - 비밀번호 8자 미만 시 400 반환")
+    @DisplayName("POST /api/users - 비밀번호 8자 미만 시 400 반환")
     void createUser_fail_shortPassword() throws Exception {
       // given
       UserRequest.Create invalidRequest = new UserRequest.Create(
@@ -187,7 +187,7 @@ class UserControllerTest {
   @DisplayName("search user test")
   class search_user {
 
-    private final String searchUri = "/api/users/";
+    private final String searchUri = "/api/users";
 
     // ───────────────────────────────────────────────
     // 성공 케이스
