@@ -7,13 +7,11 @@ import com.example.demo.global.config.db.QueryFactoryProvider;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
-@RequiredArgsConstructor
 public class UserQueryRepositoryImpl implements UserQueryRepository {
 
   private final JPAQueryFactory queryFactory;
