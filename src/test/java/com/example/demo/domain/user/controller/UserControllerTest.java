@@ -2,33 +2,43 @@ package com.example.demo.domain.user.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.example.demo.domain.user.dto.UserRequest;
+import com.example.demo.domain.user.entity.User;
+import com.example.demo.domain.user.service.UserService;
 import com.example.demo.global.Exception.CustomException;
 import com.example.demo.global.Exception.ErrorCode;
 import com.example.demo.global.Exception.GlobalExceptionHandler;
+import com.example.demo.global.common.response.RolePriorityViewStrategy;
+import com.example.demo.global.common.response.advice.SecurityJsonViewAdvice;
+import com.example.demo.global.config.JacksonConfig;
 import com.example.demo.global.config.security.SecurityConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.context.annotation.Import;
-import com.example.demo.domain.user.dto.UserRequest;
-import com.example.demo.domain.user.entity.User;
-import com.example.demo.domain.user.service.UserService;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 @WebMvcTest(UserController.class)
-@Import({SecurityConfig.class, GlobalExceptionHandler.class})
+@Import({SecurityJsonViewAdvice.class, SecurityConfig.class, GlobalExceptionHandler.class,
+    RolePriorityViewStrategy.class,
+    JacksonConfig.class})
 @DisplayName("UserController 테스트")
 class UserControllerTest {
 
@@ -86,14 +96,27 @@ class UserControllerTest {
           .willReturn(buildUser());
 
       // when & then
-      mockMvc.perform(post(createUserUri)
+      MvcResult result = mockMvc.perform(post(createUserUri)
               .contentType(MediaType.APPLICATION_JSON)
               .content(objectMapper.writeValueAsString(buildRequest())))
           .andExpect(status().isCreated())                         // 201
           .andExpect(jsonPath("$.data.loginId").value("hong123"))
           .andExpect(jsonPath("$.data.name").value("홍길동"))
-          .andExpect(jsonPath("$.data.password").doesNotExist())
-          .andDo(print());
+          .andExpect(jsonPath("$.data.phone").doesNotExist())   // 확인 부분
+          .andExpect(jsonPath("$.data.role").doesNotExist())
+          .andDo(print())
+          .andReturn();
+      // JSON 문자열로 꺼내서 직접 확인
+      String json = result.getResponse().getContentAsString(StandardCharsets.UTF_8);
+      System.out.println("=== 실제 응답 ===");
+      System.out.println(json);
+
+      // ObjectMapper로 Map으로 변환해서 키 목록 확인
+      Map<String, Object> body = objectMapper.readValue(json, Map.class);
+      Map<String, Object> data = (Map<String, Object>) body.get("data");
+
+      System.out.println("=== 노출된 필드 목록 ===");
+      data.keySet().forEach(System.out::println);
     }
 
     // ───────────────────────────────────────────────
