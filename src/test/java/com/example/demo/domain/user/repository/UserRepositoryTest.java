@@ -34,9 +34,6 @@ public class UserRepositoryTest {
 
   @BeforeEach
   void setUp() {
-    em.createQuery("delete from User").executeUpdate();
-    em.flush();
-
     userRepository.saveAll(List.of(
         buildUser("홍길동", "hong123", "01011111111"),
         buildUser("홍길순", "hong456", "01022222222"),
