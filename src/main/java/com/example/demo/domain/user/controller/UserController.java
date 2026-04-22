@@ -29,7 +29,7 @@ public class UserController {
 
   private final UserService userService;
 
-  @PostMapping("/")
+  @PostMapping
   public ResponseEntity<ApiResponse<UserResponse.Create>> createUser(
       @RequestBody @Valid UserRequest.Create request
   ) {
@@ -39,7 +39,7 @@ public class UserController {
         .body(ApiResponse.success("유저 생성 성공", UserResponse.Create.from(user)));
   }
 
-  @GetMapping("/")
+  @GetMapping
   public ResponseEntity<ApiResponse<PageResponse<Summary>>> searchUsers(
       @RequestParam(required = false) String name,
       @RequestParam(required = false) String phone,
