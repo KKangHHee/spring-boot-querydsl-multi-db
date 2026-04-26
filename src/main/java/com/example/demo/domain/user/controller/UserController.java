@@ -5,6 +5,7 @@ import com.example.demo.domain.user.dto.UserResponse;
 import com.example.demo.domain.user.dto.UserResponse.Summary;
 import com.example.demo.domain.user.entity.User;
 import com.example.demo.domain.user.service.UserService;
+import com.example.demo.global.common.response.UseJsonView;
 import com.example.demo.global.response.CommonResponse.ApiResponse;
 import com.example.demo.global.response.CommonResponse.PageResponse;
 import jakarta.validation.Valid;
@@ -30,6 +31,7 @@ public class UserController {
   private final UserService userService;
 
   @PostMapping
+  @UseJsonView
   public ResponseEntity<ApiResponse<UserResponse.Create>> createUser(
       @RequestBody @Valid UserRequest.Create request
   ) {
@@ -40,6 +42,7 @@ public class UserController {
   }
 
   @GetMapping
+  @UseJsonView
   public ResponseEntity<ApiResponse<PageResponse<Summary>>> searchUsers(
       @RequestParam(required = false) String name,
       @RequestParam(required = false) String phone,
